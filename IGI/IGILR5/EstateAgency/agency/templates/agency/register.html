@@ -1,0 +1,13 @@
+{% extends 'agency/base.html' %}
+{% block title %}Регистрация{% endblock %}
+{% block content %}
+  <div class="card-custom mx-auto" style="max-width: 520px;">
+    <h2 class="mb-4 section-title">Регистрация</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-main w-100">Зарегистрироваться</button>
+    </form>
+    <a href="{% url 'login' %}" class="btn btn-link mt-3">Уже есть аккаунт?</a>
+  </div>
+{% endblock %}

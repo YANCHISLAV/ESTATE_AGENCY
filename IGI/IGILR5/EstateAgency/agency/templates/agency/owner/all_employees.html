@@ -1,0 +1,40 @@
+{% extends 'agency/base.html' %}
+{%load static %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+<div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">
+    <a class="btn btn-outline-success" href="{% url 'add_employee' %}">Add employee</a>
+{%for now_employee in employee_realties.keys %}
+  <h3 style="display: inline-block; float: right"><strong>Information about employee</strong></h3>
+  <hr>
+  <h6><strong>Username: {{now_employee.username}}</strong></h6>
+    <h6><strong>First_name: {{now_employee.first_name}}</strong></h6>
+    <h6><strong>Last name: {{now_employee.last_name}}</strong></h6>
+    <h6><strong>Email: {{now_employee.email}}</strong></h6>
+    <a class="btn btn-outline-success" href="{{now_employee.delete_employee_url}}">Delete Employee</a>
+
+  {% for employee, realties in  employee_realties.items %}
+    {% if now_employee == employee %}
+        {%if realties %}
+             <h4 style="display: inline-block; float: right"><strong>His realties</strong></h4>
+            <hr>
+            {% for realty in realties %}
+            <div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
+                <img style="height: 300px;" class="thumbnail" src="{{realty.photo.url}}">
+                <div class="box-element product">
+                    <h6><strong>{{realty.name}}</strong></h6>
+                    <h6><strong>{{realty.address.city}}</strong></h6>
+                    <hr>
+                    <a class="btn btn-outline-success" href="{{realty.get_absolute_url}}">View</a>
+                    <h4 style="display: inline-block; float: right"><strong>${{realty.price}}</strong></h4>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+  {% endfor %}
+
+
+{% endfor %}
+</div>
+{% endblock %}

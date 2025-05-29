@@ -1,0 +1,36 @@
+{% extends 'agency/base.html' %}
+{% block title %}Новости{% endblock %}
+{% block content %}
+<div class="card-custom mx-auto" style="max-width: 700px;">
+  <h2 class="section-title text-center">Новости</h2>
+  {% if request.user.is_superuser %}
+    <form method="post" class="mb-4">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-main w-100">Добавить новость</button>
+    </form>
+  {% endif %}
+  <hr>
+  {% if articles %}
+    {% for article in articles %}
+      <div class="mb-4 p-3 border rounded bg-light position-relative">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="mb-0">{{ article.title }}</h5>
+          <span class="text-muted small">{{ article.created_at|date:'d.m.Y H:i' }}</span>
+        </div>
+        <div class="mb-2 text-secondary">Автор: {{ article.publisher.username }}</div>
+        <div>{{ article.text|linebreaks }}</div>
+        {% if request.user.is_superuser %}
+          <form method="post" action="" style="position:absolute; top:10px; right:10px;">
+            {% csrf_token %}
+            <input type="hidden" name="article_id" value="{{ article.id }}">
+            <button type="submit" name="delete" class="btn btn-sm btn-danger" onclick="return confirm('Удалить новость?');">Удалить</button>
+          </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-center text-muted">Пока нет новостей.</p>
+  {% endif %}
+</div>
+{% endblock %} 

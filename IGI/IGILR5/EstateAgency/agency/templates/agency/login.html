@@ -1,0 +1,13 @@
+{% extends 'agency/base.html' %}
+{% block title %}Вход{% endblock %}
+{% block content %}
+  <div class="card-custom mx-auto" style="max-width: 420px;">
+    <h2 class="mb-4 section-title">Вход</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-main w-100">Войти</button>
+    </form>
+    <a href="{% url 'register' %}" class="btn btn-link mt-3">Нет аккаунта? Зарегистрируйтесь</a>
+  </div>
+{% endblock %}

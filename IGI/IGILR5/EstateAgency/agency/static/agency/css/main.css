@@ -1,0 +1,171 @@
+.navbar .icon img {
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.navbar {
+    padding: 18px;
+}
+
+.navbar-expand-sm .navbar-nav .lk {
+    padding-right: 25px;
+}
+
+.navbar-nav .nav-link {
+    color: gray;
+    transition: color 0.2s ease-in-out;
+}
+.navbar-nav .nav-link-selected{
+    color:black;
+    transition: color 0.2s ease-in-out;
+    padding :8px  25px  8px 8px;
+    margin-bottom :0px;
+    text-decoration: underline;
+}
+.nav-link:hover {
+    color: black;
+}
+
+.navbar .cart-total {
+	display: block;
+	text-align: center;
+	color: white;
+	background-color: red;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	font-size: 14px;
+    font-family: Arial , sans-serif;
+    float: right;
+}
+
+.btn-outline-success:active{
+    background-color: gray;
+}
+
+.btn-dark {
+    padding-top: 2px;
+}
+
+.navbar .btn-dark img {
+    height: 20px;
+    width: 20px;
+    horizontal-align: middle;
+}
+
+.form-control .search-input .me-2{
+    font-family: Arial , sans-serif;
+
+}
+
+hr {
+    margin: 0;
+    color: black;
+}
+
+/* --- Современные карточки --- */
+.card-custom {
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+  background: #fff;
+  padding: 24px 20px 18px 20px;
+  margin-bottom: 32px;
+  transition: box-shadow 0.2s;
+}
+.card-custom:hover {
+  box-shadow: 0 8px 40px rgba(0,0,0,0.16);
+}
+
+/* --- Кнопки --- */
+.btn-main {
+  background: linear-gradient(90deg, #0dcaf0 0%, #0d6efd 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 10px 28px;
+  box-shadow: 0 2px 8px rgba(13,202,240,0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.btn-main:hover {
+  background: linear-gradient(90deg, #0d6efd 0%, #0dcaf0 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(13,202,240,0.16);
+}
+
+/* --- Формы --- */
+.form-control, .form-select {
+  border-radius: 8px;
+  border: 1.5px solid #e0e7ef;
+  box-shadow: none;
+  font-size: 1.08rem;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  background: #f8fafc;
+  transition: border 0.2s;
+}
+.form-control:focus, .form-select:focus {
+  border: 1.5px solid #0dcaf0;
+  background: #fff;
+}
+
+/* --- Алерты --- */
+.alert {
+  border-radius: 10px;
+  font-size: 1.08rem;
+  font-weight: 500;
+  box-shadow: 0 2px 12px rgba(13,202,240,0.07);
+}
+
+/* --- Заголовки --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
+  color: #212529;
+  letter-spacing: 0.5px;
+}
+
+/* --- Ссылки --- */
+a {
+  color: #0d6efd;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #0dcaf0;
+  text-decoration: underline;
+}
+
+/* --- Мелкие улучшения --- */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #e0e7ef;
+}
+::-webkit-scrollbar-thumb {
+  background: #b6c2d1;
+  border-radius: 8px;
+}
+
+/* --- Кастомные блоки --- */
+.section-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #0d6efd;
+  letter-spacing: 1px;
+}
+
+/* --- Карточки недвижимости --- */
+.realty-card {
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(13,202,240,0.10);
+  background: #fff;
+  padding: 18px 18px 12px 18px;
+  margin-bottom: 28px;
+  transition: box-shadow 0.2s;
+}
+.realty-card:hover {
+  box-shadow: 0 8px 32px rgba(13,202,240,0.18);
+}
+

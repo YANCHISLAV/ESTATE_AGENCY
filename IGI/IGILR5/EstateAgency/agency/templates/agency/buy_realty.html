@@ -1,0 +1,33 @@
+{% extends 'agency/base.html' %}
+{% load static %}
+{% load agency_tags %}
+{% block title %}Покупка недвижимости{% endblock %}
+
+{% block content %}
+<div class="card-custom mx-auto" style="max-width: 520px;">
+  <h2 class="mb-4 section-title">Покупка недвижимости</h2>
+  <div class="mb-3">
+    <img src="{{ realty.photo.url }}" class="img-fluid rounded shadow-sm mb-3" alt="{{ realty.name }}" style="max-height:240px; object-fit:cover;">
+    <h4 class="fw-bold">{{ realty.name }}</h4>
+    <div class="text-muted mb-2">{{ realty.address.city }}, {{ realty.address.state }}</div>
+    <div class="mb-2"><span class="category-label">{{ realty.cat.name }}</span></div>
+    <div class="mb-2">Цена: <b>${{ realty.price }}</b></div>
+    {% if discount %}
+      <div class="mb-2 text-success">Скидка по промокоду: {{ discount }}%</div>
+      <div class="mb-2">Итого к оплате: <b>${{ price_discount }}</b></div>
+    {% endif %}
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="promocode" class="form-label">Промокод (если есть):</label>
+      <input type="text" class="form-control" id="promocode" name="promocode" value="{{ promocode|default:'' }}">
+    </div>
+    <div class="mb-3">
+      <label for="amount" class="form-label">Сумма к оплате:</label>
+      <input type="number" class="form-control" id="amount" name="amount" step="1" min="1" required>
+    </div>
+    <button type="submit" class="btn btn-main w-100">Купить</button>
+  </form>
+</div>
+{% endblock %}

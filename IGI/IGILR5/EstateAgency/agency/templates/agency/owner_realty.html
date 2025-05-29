@@ -1,0 +1,91 @@
+{% extends 'agency/base.html' %}
+{% load static %}
+{% load agency_tags %}
+{% block title %}Your realtys{% endblock %}
+
+{% block content %}
+{% is_employee request.user as is_emp%}
+    <link rel="stylesheet" href="{% static 'store/css/CategoriesCartCheckout.css' %}">
+	<div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">
+		{% if not is_emp%}
+		<a class="btn btn-outline-success" href="{% url 'add_realty' %}">Add realty</a>
+		{% endif %}
+		{%if owner_buying_realties%}
+			<h3 style="display: inline-block; float: right"><strong>You realties, which has bought</strong></h3>
+			<hr>
+			{%for realty in owner_buying_realties%}
+			<div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
+				<img style="height: 300px;" class="thumbnail" src="{{realty.photo.url}}">
+				<div class="box-element product">
+
+					<h6><strong>{{realty.name}}</strong></h6>
+					<h6><strong>{{realty.address.city}}</strong></h6>
+					<h6><strong>Landlord: {{realty.landlord.username}}</strong></h6>
+
+					<hr>
+					<a class="btn btn-outline-success" href="{{realty.get_absolute_url}}">View</a>
+					<h4 style="display: inline-block; float: right"><strong>${{realty.price}}</strong></h4>
+				</div>
+			</div>
+			{%endfor%}
+		{% endif %}
+
+		{%if owner_not_buying_realties%}
+		<h3 style="display: inline-block; float: right"><strong>You realties, which hasn't bought</strong></h3>
+	<hr>
+      {%for realty in owner_not_buying_realties%}
+		<div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
+			<img style="height: 300px; width: 300px" class="thumbnail" src="{{realty.photo.url}}" >
+			<div class="box-element product">
+				<h6><strong>{{realty.name}}</strong></h6>
+				<h6><strong>{{realty.address.city}}</strong></h6>
+				<hr>
+				<a class="btn btn-outline-success" href="{{realty.get_absolute_url}}">View</a>
+				<h4 style="display: inline-block; float: right"><strong>${{realty.price}}</strong></h4>
+			</div>
+		</div>
+		{%endfor%}
+		{% endif %}
+		{%if not is_emp %}
+			{%if buying_realties %}
+				<h3 style="display: inline-block; float: right"><strong>You realties, which you buy</strong></h3>
+				<hr>
+				{%for realty in buying_realties%}
+				<div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
+					<img style="height: 300px; width: 300px" class="thumbnail" src="{{realty.photo.url}}" >
+					<div class="box-element product">
+						<h6><strong>{{realty.name}}</strong></h6>
+						<h6><strong>{{realty.address.city}}</strong></h6>
+						<hr>
+						<a class="btn btn-outline-success" href="{{realty.get_absolute_url}}">View</a>
+						<h4 style="display: inline-block; float: right"><strong>${{realty.price}}</strong></h4>
+					</div>
+				</div>
+				{% endfor %}
+
+			{%endif%}
+			{%if must_pay_realties %}
+			<h3 style="display: inline-block; float: right"><strong>You realties, which you buy, but not pay</strong></h3>
+				<hr>
+				{%for realty in must_pay_realties%}
+				<div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
+					<img style="height: 300px; width: 300px" class="thumbnail" src="{{realty.photo.url}}" >
+					<div class="box-element product">
+						<h6><strong>{{realty.name}}</strong></h6>
+						<h6><strong>{{realty.address.city}}</strong></h6>
+						<hr>
+						<a class="btn btn-outline-success" href="{{realty.get_absolute_url}}">View</a>
+						<a class="btn btn-outline-success" href="{{realty.buy_url}}">Buy</a>
+						<h4 style="display: inline-block; float: right"><strong>${{realty.price}}</strong></h4>
+					</div>
+				</div>
+				{%endfor%}
+			{%endif%}
+
+		{% endif %}
+	</div>
+
+
+
+
+{% endblock %}

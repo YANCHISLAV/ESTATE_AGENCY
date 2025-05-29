@@ -1,0 +1,158 @@
+{% extends 'agency/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+*
+{
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+{
+    text-decoration: none;
+}
+
+.product-card {
+    width: 380px;
+    position: relative;
+    box-shadow: 0 2px 7px #dfdfdf;
+    margin: 50px auto;
+    background: #fafafa;
+}
+
+.product-tumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    background: #f0f0f0;
+}
+
+.product-tumb img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.product-details {
+    padding: 30px;
+}
+
+.product-catagory {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ccc;
+    margin-bottom: 18px;
+}
+
+.product-details h4 {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    color: black;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.product-details p {
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 18px;
+    color: #999;
+}
+
+.product-bottom-details {
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.product-bottom-details div {
+    float: left;
+    width: 50%;
+}
+
+.product-price {
+    font-size: 18px;
+    color: black;
+    font-weight: 600;
+}
+
+.product-price small {
+    font-size: 80%;
+    font-weight: 400;
+    text-decoration: line-through;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.product-links {
+    text-align: right;
+}
+.size{
+	text-align: left;
+}
+.product-links a {
+    display: inline-block;
+    margin-left: 5px;
+    color: #e1e1e1;
+    transition: 0.3s;
+    font-size: 17px;
+    height: 20px;
+}
+
+.product-links img {
+    height: 20px;
+    padding-right: 3px;
+    transition: .2s;
+}
+
+.product-links img:hover {
+    scale: 108%;
+}
+
+.product-links img:focus {
+    color: greenyellow;
+}
+
+
+    </style>
+<div class="product-card" style="box-shadow:hsl(0, 0%, 80%) 0 0 16px; border-radius: 4px">
+	<div class="product-tumb">
+		<img src="{{user.photo.url}}" alt="">
+	</div>
+
+	<h6><strong>Username: {{user.username}}</strong></h6>
+	<h6><strong>First_name: {{user.first_name}}</strong></h6>
+	<h6><strong>Last name: {{user.last_name}}</strong></h6>
+	<h6><strong>Email: {{user.email}}</strong></h6>
+	{% if request.user == user %}
+	<a class="btn btn-outline-success" href="{{user.update_data_url}}">Update Data</a>
+	{% endif %}
+</div>
+
+<div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">
+		<h3 style="display: inline-block; float: right"><strong>His Realties: </strong></h3>
+		<hr>
+		{%for realty in realtys%}
+		<div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
+			<img style="height: 300px;" class="thumbnail" src="{{realty.photo.url}}">
+			<div class="box-element product">
+				<h6><strong>{{realty.name}}</strong></h6>
+				<h6><strong>{{realty.address.city}}</strong></h6>
+				<hr>
+				<a class="btn btn-outline-success" href="{{realty.get_absolute_url}}">View</a>
+				<h4 style="display: inline-block; float: right"><strong>${{realty.price}}</strong></h4>
+			</div>
+		</div>
+        {%endfor%}
+</div>
+
+{% endblock %}

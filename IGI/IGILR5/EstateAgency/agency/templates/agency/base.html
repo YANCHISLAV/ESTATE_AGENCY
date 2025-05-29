@@ -1,0 +1,161 @@
+{% load static %}
+{% load agency_tags %}
+{% load tz %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap">
+    <link rel="stylesheet" href="{% static 'agency/css/main.css' %}">
+    <style>
+      body {
+        background: linear-gradient(135deg, #e0e7ef 0%, #c9e7fa 50%, #f8fafc 100%);
+        min-height: 100vh;
+        font-family: 'Montserrat', Arial, sans-serif;
+        position: relative;
+        overflow-x: hidden;
+      }
+      .bg-pattern {
+        position: absolute;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background: url('https://www.transparenttextures.com/patterns/geometry2.png');
+        opacity: 0.12;
+        z-index: 0;
+      }
+      .main-nav {
+        background: #212529;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      }
+      .navbar .nav-link.lk {
+        color: #fff !important;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: color 0.2s;
+      }
+      .navbar .nav-link.lk:hover {
+        color: #0dcaf0 !important;
+      }
+      .container-main {
+        max-width: 1100px;
+        margin: 40px auto 0 auto;
+        background: rgba(255,255,255,0.92);
+        border-radius: 18px;
+        box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+        padding: 32px 32px 24px 32px;
+        min-height: 70vh;
+        position: relative;
+        z-index: 1;
+      }
+      .welcome-block {
+        background: linear-gradient(120deg, #0dcaf0 0%, #0d6efd 100%);
+        color: #fff;
+        border-radius: 18px;
+        box-shadow: 0 4px 32px rgba(13,202,240,0.12);
+        padding: 36px 32px 32px 32px;
+        margin-bottom: 36px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .welcome-block img {
+        max-width: 320px;
+        border-radius: 16px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+        margin-bottom: 18px;
+      }
+      .welcome-block h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 18px;
+        color: #fff;
+        letter-spacing: 1px;
+      }
+      .welcome-block p {
+        font-size: 1.25rem;
+        color: #e0e7ef;
+        margin-bottom: 0;
+      }
+      footer {
+        background: #212529;
+        color: #fff;
+        text-align: center;
+        padding: 18px 0 10px 0;
+        margin-top: 40px;
+        border-radius: 12px 12px 0 0;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+      }
+      .alert {
+        margin-top: 18px;
+      }
+    </style>
+</head>
+<body>
+<div class="bg-pattern"></div>
+<nav class="navbar navbar-expand-lg main-nav">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-info" href="{% url 'main' %}">Agency Realty</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        {% is_employee request.user as is_emp %}
+        {% if request.user.is_superuser %}
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'admin_info' %}">Admin Info</a></li>
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'news' %}">Новости</a></li>
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'privacy' %}">Политика</a></li>
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'logout' %}">Logout</a></li>
+        {% elif is_emp %}
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'realties' %}?agency=0">Пользовательская недвижимость</a></li>
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'realties' %}?agency=1">Агентская недвижимость</a></li>
+          {% if request.user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link lk" href="{{request.user.get_absolute_url}}">Профиль</a></li>
+            <li class="nav-item"><a class="nav-link lk" href="{% url 'news' %}">Новости</a></li>
+            <li class="nav-item"><a class="nav-link lk" href="{% url 'privacy' %}">Политика</a></li>
+            <li class="nav-item"><a class="nav-link lk" href="{% url 'logout' %}">Выйти</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link lk" href="{% url 'register' %}">Регистрация</a></li>
+            <li class="nav-item"><a class="nav-link lk" href="{% url 'login' %}">Вход</a></li>
+            <li class="nav-item"><a class="nav-link lk" href="{% url 'news' %}">Новости</a></li>
+            <li class="nav-item"><a class="nav-link lk" href="{% url 'privacy' %}">Политика</a></li>
+          {% endif %}
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-main">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+  {% block content %}
+    {% if request.path == '/' %}
+      <div class="welcome-block mx-auto">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Real Estate" />
+        <h1>Добро пожаловать в Agency Realty!</h1>
+        <p>Современная платформа для поиска, покупки и продажи недвижимости.<br>Откройте новые возможности вместе с нами!</p>
+      </div>
+    {% endif %}
+  {% endblock %}
+</div>
+
+<footer>
+  <div>© {{ now|date:"Y" }} Agency Realty. Все права защищены.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

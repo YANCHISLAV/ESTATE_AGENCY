@@ -1,0 +1,191 @@
+{% extends 'agency/base.html' %}
+{% load static %}
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-sm navbar-dark sec-nav">
+		<div class="container justify-content-center">
+			<ul class="nav navbar-nav w-100 flex-nowrap">
+				{% for cat in cats%}
+					<li class="nav-item active">
+					{%if cat == cat_selected%}
+						<p class="nav-link-selected lk" >{{cat.name}}</p>
+					{%else%}
+						{%if Agency%}
+							<a class="nav-link lk" href="{{cat.get_absolute_agency_url}}" >{{cat.name}}</a>
+						{%else%}
+							<a class="nav-link lk" href="{{cat.get_absolute_user_url}}" >{{cat.name}}</a>
+						{%endif%}
+					{%endif%}
+				 {% endfor %}
+					</li>
+			</ul>
+		</div>
+	</nav>
+	<div style="display:flex">
+         <label style="white-space:nowrap">Filter price</label>
+        <input class="form-control search-input me-2" type="number" min="1" placeholder="Min price" aria-label="Search" id ="min_area" >
+		<input class="form-control search-input me-2" type="number" min="1" placeholder="Max price" aria-label="Search" id ="max_area" >
+        <button id="btn_filter_price" class="btn btn-dark">GET</button>
+        <input  class="form-control search-input me-2" type="search" placeholder="Search" aria-label="Search" id ="search_area">
+        <button id="btn_filter_name" class="btn btn-dark">FIND</button>
+        <select id="select-sort">
+            <option value="name">Sort by name</option>
+            <option value="cat">Sort by category</option>
+            <option value="price">Sort by price(Ascending)</option>
+            <option value="-price">Sort by price(Descending)</option>
+
+        </select>
+         <button id="btn_delete_filter"  style="white-space:nowrap" class="btn btn-dark">Delete all filters</button>
+    </div>
+    <link rel="stylesheet" href="{% static 'agency/css/CategoriesCartCheckout.css' %}">
+
+	<div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">
+
+		{%if realtys_city_user%}
+		<h3 style="display: inline-block; float: right"><strong>Realities in you city</strong></h3>
+		<hr>
+		{%for realty in realtys_city_user%}
+		<div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
+			<img style="height: 300px;" class="thumbnail" src="{{realty.photo.url}}">
+			<div class="box-element product">
+				<h6><strong>{{realty.name}}</strong></h6>
+				<h6><strong>{{realty.address.city}}</strong></h6>
+				<hr>
+				<a class="btn btn-outline-success" href="{{realty.get_absolute_url}}">View</a>
+				<h4 style="display: inline-block; float: right"><strong>${{realty.price}}</strong></h4>
+			</div>
+		</div>
+		{%endfor%}
+		{%endif%}
+
+		<h3 style="display: inline-block; float: right"><strong>All realities</strong></h3>
+		<hr>
+		{%for realty in realties%}
+		<div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
+			<img style="height: 300px;" class="thumbnail" src="{{realty.photo.url}}">
+			<div class="box-element product">
+				<h6><strong>{{realty.name}}</strong></h6>
+				<h6><strong>{{realty.address.city}}</strong></h6>
+				<hr>
+				<a class="btn btn-outline-success" href="{{realty.get_absolute_url}}">View</a>
+				<h4 style="display: inline-block; float: right"><strong>${{realty.price}}</strong></h4>
+
+
+			</div>
+		</div>
+
+		{%endfor%}
+
+
+	</div>
+<script>
+const selectSort = document.getElementById('select-sort');
+const savedSelectedSort = localStorage.getItem('selectedSort');
+
+if (savedSelectedSort) {
+    selectSort.value = savedSelectedSort;
+}
+
+selectSort.addEventListener('change', function() {
+    const selectedSort = selectSort.value;
+    localStorage.setItem('selectedSort', selectedSort);
+    var url = new URL(window.location.href);
+    var params = url.searchParams;
+    if (params.has('selectedSort')) {
+        // Update the existing parameter value
+        params.set('selectedSort', selectedSort);
+    } else {
+        // Add the new parameter to the URL
+        params.append('selectedSort', selectedSort);
+    }
+    window.location.href = url;
+});
+const BtnFilterPrice = document.getElementById('btn_filter_price');
+
+
+const savedMaxInput = localStorage.getItem('InputMax');
+
+if (savedMaxInput) {
+    document.getElementById('max_area').value = savedMaxInput;
+}
+
+const savedMinInput = localStorage.getItem('InputMin');
+
+if (savedMinInput) {
+    document.getElementById('min_area').value = savedMinInput;
+}
+
+BtnFilterPrice.addEventListener('click', function() {
+    const InputMax = document.getElementById('max_area').value;
+    const InputMin = document.getElementById('min_area').value;
+    if (InputMin <= 0 || InputMax <= 0){
+        if (InputMin <= 0 ){
+            alert('Minimun price must be >0');
+        }
+        else{
+            alert('Maximum price must be >0');
+        }
+    }
+    else{
+
+        localStorage.setItem('InputMax', InputMax);
+        localStorage.setItem('InputMin', InputMin);
+        var url = new URL(window.location.href);
+        var params = url.searchParams;
+         if (params.has('min_price')) {
+            // Update the existing parameter value
+            params.set('min_price', InputMin);
+        } else {
+            // Add the new parameter to the URL
+            params.append('min_price', InputMin);
+        }
+        if (params.has('max_price')) {
+            // Update the existing parameter value
+            params.set('max_price', InputMax);
+        } else {
+            // Add the new parameter to the URL
+            params.append('max_price', InputMax);
+        }
+         window.location.href = url;
+    }
+
+
+});
+
+
+const BtnFilterName = document.getElementById('btn_filter_name');
+
+
+const savedNameInput = localStorage.getItem('NameInput');
+
+if (savedNameInput) {
+    document.getElementById('search_area').value = savedNameInput;
+}
+
+
+
+BtnFilterName.addEventListener('click', function() {
+    const NameInput = document.getElementById('search_area').value;
+    localStorage.setItem('NameInput', NameInput);
+    var url = new URL(window.location.href);
+    var params = url.searchParams;
+     if (params.has('search_name')) {
+        // Update the existing parameter value
+        params.set('search_name', NameInput);
+    } else {
+        // Add the new parameter to the URL
+        params.append('search_name', NameInput);
+    }
+
+    window.location.href = url;
+});
+const BtnDeleteFilter = document.getElementById('btn_delete_filter');
+BtnDeleteFilter.addEventListener('click', function() {
+    localStorage.clear()
+    var url = new URL(window.location.href);
+    url.search = '';
+    window.location.href = url;
+});
+    </script>
+{% endblock %}

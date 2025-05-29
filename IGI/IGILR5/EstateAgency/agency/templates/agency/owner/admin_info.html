@@ -1,0 +1,64 @@
+{% extends 'agency/base.html' %}
+{%load static %}
+{% load agency_tags %}
+
+{% block title %}Admin Info{% endblock %}
+{% block content %}
+<div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">
+	<h3><strong>Sold realties</strong></h3>
+	{%for realty, user_paid in realties_prices.items %}
+			{%is_agency_realty realty as is_agency %}
+
+					<h6><strong>{{realty.name}}</strong></h6>
+					<hr>
+					<a class="btn btn-outline-success" style="display:block;width:200px" href="{{realty.get_absolute_url}}">View</a>
+					<h4 style="display: inline-block; float: right"><strong>Price: ${{realty.price}}</strong></h4>
+					{% if is_agency %}
+					<h4 style="display: inline-block; float: right"><strong>Employee: {{realty.owner.username}}</strong></h4>
+					{% else %}
+					<h4 style="display: inline-block; float: right"><strong>Owner: {{realty.owner.username}}</strong></h4>
+					{% endif %}
+					<h4 style="display: inline-block; float: right"><strong>landlord: {{realty.landlord.username}}</strong></h4>
+					<h4 style="display: inline-block; float: right"><strong>User paid: ${{user_paid}}</strong></h4>
+
+	{% endfor %}
+</div>
+<div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">
+
+				<h4 style="display: inline-block; float: right"><strong>average of profit {{average}}</strong></h4>
+                <h4 style="display: inline-block; float: right"><strong>mode of profit: {{mode}}</strong></h4>
+                <h4 style="display: inline-block; float: right"><strong>mediana  of profit: {{mediana}}</strong></h4>
+                <h2>User Info</h2>
+                <h4 style="display: inline-block; float: right"><strong>average date  of users: {{average_date}}</strong></h4>
+                <h4 style="display: inline-block; float: right"><strong>mediana date  of users: {{mediana_date}}</strong></h4>
+
+		</div>
+<div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">
+<h2>Category Info</h2>
+{%for category in all_category%}
+
+
+
+                <h4 style="display: inline-block; float: right"><strong>Name of category {{category.name}}</strong></h4>
+				{% get_category_in_list categories=categories category=category as cat_count%}
+				{% get_category_in_list categories=categories_price category=category as cat_price%}
+				<h4 style="display: inline-block; float: right"><strong>In this category: {{cat_count}} rented agency</strong></h4>
+				<h4 style="display: inline-block; float: right"><strong>In this category: ${{cat_price}} profit</strong></h4>
+
+
+{% endfor %}
+</div>
+
+<div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">
+
+                <h4 style="display: inline-block; float: right"><strong>Most popular category {{most_popular_category}}</strong></h4>
+				<h4 style="display: inline-block; float: right"><strong>Most beneficial category: {{most_beneficial_category}}</strong></h4>
+
+		</div>
+
+
+
+<img src="{{graphic1}}" alt="">
+<img src="{{graphic2}}" alt="">
+
+{% endblock %}

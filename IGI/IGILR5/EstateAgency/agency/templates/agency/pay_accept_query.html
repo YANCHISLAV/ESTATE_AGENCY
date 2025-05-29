@@ -1,0 +1,59 @@
+{% extends 'agency/base.html' %}
+{% load static %}
+{% block title %}Pay accepted query{% endblock %}
+{% block content %}
+<h3 style="display: inline-block; float: left"><strong>Before accepting the request, you must pay 1% of the price for the property, for the services provided</strong></h3>
+<h3 style="display: inline-block; float: left"><strong>Realty which you sold</strong></h3>
+<hr>
+    <div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
+			<img style="height: 300px;" class="thumbnail" src="{{realty.photo.url}}">
+			<div class="box-element product">
+				<h6><strong>{{realty.name}}</strong></h6>
+				<h6><strong>{{realty.address.city}}</strong></h6>
+				<hr>
+                <h4 style="display: inline-block; float: right"><strong>${{realty.price}}</strong></h4>
+            </div>
+    </div>
+
+     <label style="white-space:nowrap">Enter promocode</label>
+        <input class="form-control search-input me-2" type="text"  placeholder="Promocode" aria-label="Search" id ="promocode" >
+        <button id="btn_promocode" class="btn btn-dark">GET</button>
+     <form action="{% url 'buy_realty' realty.slug %}" method="POST">
+         {% csrf_token %}
+         <button type="submit" class="btn btn-outline-success" id="checkout-button">Pay</button>
+     </form>
+
+
+<script>
+    const discount =localStorage.getItem('Discpount');
+
+const BtnPromocode= document.getElementById('btn_promocode');
+
+
+const savedPromocode = localStorage.getItem('Promocode');
+
+if (savedPromocode) {
+    document.getElementById('promocode').value = savedPromocode;
+}
+
+
+
+
+BtnPromocode.addEventListener('click', function() {
+    const Promocode = document.getElementById('promocode').value;
+    localStorage.setItem('Promocode', Promocode);
+    console.log(Promocode);
+    var url = new URL(window.location.href);
+    var params = url.searchParams;
+     if (params.has('promocode')) {
+        // Update the existing parameter value
+        params.set('promocode', Promocode);
+    } else {
+        // Add the new parameter to the URL
+        params.append('promocode', Promocode);
+    }
+    window.location.href = url;
+
+});
+</script>
+{% endblock %}

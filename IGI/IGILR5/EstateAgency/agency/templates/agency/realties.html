@@ -1,0 +1,185 @@
+{% extends 'agency/base.html' %}
+{%load static %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+<div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">
+	<div style="display:flex">
+		<label style="white-space:nowrap">Filter price</label>
+		<input class="form-control search-input me-2" type="number" min="1" placeholder="Min price" aria-label="Search" id ="min_area" >
+		<input class="form-control search-input me-2" type="number" min="1" placeholder="Max price" aria-label="Search" id ="max_area" >
+		<button id="btn_filter_price" class="btn btn-dark">GET</button>
+		<input  class="form-control search-input me-2" type="search" placeholder="Search" aria-label="Search" id ="search_area">
+		<button id="btn_filter_name" class="btn btn-dark">FIND</button>
+		<select id="select-category" class="form-select me-2">
+			<option value="">All categories</option>
+			{% for cat in cats %}
+				<option value="{{ cat.slug }}" {% if cat == cat_selected %}selected{% endif %}>{{ cat.name }}</option>
+			{% endfor %}
+		</select>
+		<select id="select-sort">
+			<option value="name">Sort by name</option>
+			<option value="cat">Sort by category</option>
+			<option value="price">Sort by price(Ascending)</option>
+			<option value="-price">Sort by price(Descending)</option>
+		</select>
+		<button id="btn_delete_filter"  style="white-space:nowrap" class="btn btn-dark">Delete all filters</button>
+	</div>
+	<h3 style="display: inline-block; float: right"><strong>All realities of other users</strong></h3>
+		<hr>
+		{%for realty in realties %}
+		<div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
+			<img style="height: 300px;" class="thumbnail" src="{{realty.photo.url}}">
+			<div class="box-element product">
+				<h6><strong>{{realty.name}}</strong></h6>
+				<h6><strong>{{realty.address.city}}</strong></h6>
+				<div class="mb-2"><span class="category-label">{{ realty.cat.name }}</span></div>
+				<hr>
+				<a class="btn btn-outline-success" href="{{realty.get_absolute_url}}">View</a>
+				<h4 style="display: inline-block; float: right"><strong>${{realty.price}}</strong></h4>
+
+
+			</div>
+		</div>
+
+	{%endfor%}
+</div>
+<script>
+const selectSort = document.getElementById('select-sort');
+const savedSelectedSort = localStorage.getItem('selectedSort');
+
+if (savedSelectedSort) {
+    selectSort.value = savedSelectedSort;
+}
+
+selectSort.addEventListener('change', function() {
+    const selectedSort = selectSort.value;
+    localStorage.setItem('selectedSort', selectedSort);
+    var url = new URL(window.location.href);
+    var params = url.searchParams;
+    if (params.has('selectedSort')) {
+        // Update the existing parameter value
+        params.set('selectedSort', selectedSort);
+    } else {
+        // Add the new parameter to the URL
+        params.append('selectedSort', selectedSort);
+    }
+    window.location.href = url;
+});
+const BtnFilterPrice = document.getElementById('btn_filter_price');
+
+
+const savedMaxInput = localStorage.getItem('InputMax');
+
+if (savedMaxInput) {
+    document.getElementById('max_area').value = savedMaxInput;
+}
+
+const savedMinInput = localStorage.getItem('InputMin');
+
+if (savedMinInput) {
+    document.getElementById('min_area').value = savedMinInput;
+}
+
+BtnFilterPrice.addEventListener('click', function() {
+    const InputMax = document.getElementById('max_area').value;
+    const InputMin = document.getElementById('min_area').value;
+    if (InputMin <= 0 || InputMax <= 0){
+        if (InputMin <= 0 ){
+            alert('Minimun price must be >0');
+        }
+        else{
+            alert('Maximum price must be >0');
+        }
+    }
+    else{
+
+        localStorage.setItem('InputMax', InputMax);
+        localStorage.setItem('InputMin', InputMin);
+        var url = new URL(window.location.href);
+        var params = url.searchParams;
+         if (params.has('min_price')) {
+            // Update the existing parameter value
+            params.set('min_price', InputMin);
+        } else {
+            // Add the new parameter to the URL
+            params.append('min_price', InputMin);
+        }
+        if (params.has('max_price')) {
+            // Update the existing parameter value
+            params.set('max_price', InputMax);
+        } else {
+            // Add the new parameter to the URL
+            params.append('max_price', InputMax);
+        }
+         window.location.href = url;
+    }
+
+
+});
+
+
+const BtnFilterName = document.getElementById('btn_filter_name');
+
+
+const savedNameInput = localStorage.getItem('NameInput');
+
+if (savedNameInput) {
+    document.getElementById('search_area').value = savedNameInput;
+}
+
+
+
+BtnFilterName.addEventListener('click', function() {
+    const NameInput = document.getElementById('search_area').value;
+    localStorage.setItem('NameInput', NameInput);
+    var url = new URL(window.location.href);
+    var params = url.searchParams;
+     if (params.has('search_name')) {
+        // Update the existing parameter value
+        params.set('search_name', NameInput);
+    } else {
+        // Add the new parameter to the URL
+        params.append('search_name', NameInput);
+    }
+    window.location.href = url;
+});
+const BtnDeleteFilter = document.getElementById('btn_delete_filter');
+BtnDeleteFilter.addEventListener('click', function() {
+    localStorage.clear()
+    var url = new URL(window.location.href);
+    url.search = '';
+    window.location.href = url;
+});
+const selectCategory = document.getElementById('select-category');
+const savedCategory = localStorage.getItem('selectedCategory');
+if (savedCategory) {
+    selectCategory.value = savedCategory;
+}
+selectCategory.addEventListener('change', function() {
+    const selectedCategory = selectCategory.value;
+    localStorage.setItem('selectedCategory', selectedCategory);
+    var url = new URL(window.location.href);
+    var params = url.searchParams;
+    if (selectedCategory) {
+        params.set('category', selectedCategory);
+    } else {
+        params.delete('category');
+    }
+    window.location.href = url;
+});
+</script>
+<style>
+.category-label {
+  color: #0d6efd;
+  font-weight: 700;
+  font-size: 1.08rem;
+  letter-spacing: 0.5px;
+  background: #e7f1ff;
+  border-radius: 8px;
+  padding: 3px 12px;
+  display: inline-block;
+}
+</style>
+
+
+{% endblock %}

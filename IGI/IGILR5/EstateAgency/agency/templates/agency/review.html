@@ -1,0 +1,25 @@
+{% extends "agency/base.html" %}
+
+{% block title %}Оставить отзыв{% endblock %}
+
+{% block content %}
+  <div class="card-custom mx-auto" style="max-width: 520px;">
+    <h2 class="mb-4 section-title">Оставить отзыв</h2>
+
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="alert alert-{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-main w-100">Оставить отзыв</button>
+    </form>
+
+    <a href="{% url 'realty' realty.slug %}" class="btn btn-link mt-3">Назад к объекту</a>
+  </div>
+{% endblock %}

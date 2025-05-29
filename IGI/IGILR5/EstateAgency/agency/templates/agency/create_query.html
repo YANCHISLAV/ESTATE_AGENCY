@@ -1,0 +1,12 @@
+{% extends 'agency/base.html' %}
+{% block title %}Оставить заявку{% endblock %}
+{% block content %}
+  <div class="card-custom mx-auto" style="max-width: 520px;">
+    <h2 class="mb-4 section-title">Оставить заявку</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-main w-100">Отправить заявку</button>
+    </form>
+  </div>
+{% endblock %} 

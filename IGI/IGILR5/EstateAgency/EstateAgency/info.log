@@ -1,0 +1,128 @@
+2025-05-23 09:26:23,873 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>phone_number<ul class="errorlist" id="id_phone_number_error"><li>Phone number must be entered in the format: &#x27;+375(29)XXXXXX&#x27;</li></ul></li><li>password2<ul class="errorlist" id="id_password2_error"><li>This password is too common.</li><li>This password is entirely numeric.</li></ul></li></ul>
+2025-05-23 09:26:50,799 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>password2<ul class="errorlist" id="id_password2_error"><li>This password is too common.</li><li>This password is entirely numeric.</li></ul></li></ul>
+2025-05-23 09:27:32,883 INFO main Register user: Yanchik
+2025-05-23 09:27:45,004 DEBUG main logout user: Yanchik
+2025-05-23 09:43:33,106 DEBUG main logout user: Yancheslav
+2025-05-23 09:53:53,934 DEBUG main logout user: 
+2025-05-23 09:54:24,526 INFO main auth user: Yancheslav
+2025-05-23 09:55:25,471 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>password2<ul class="errorlist" id="id_password2_error"><li>This password is too common.</li></ul></li></ul>
+2025-05-23 09:55:55,576 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>password2<ul class="errorlist" id="id_password2_error"><li>This password is too common.</li></ul></li></ul>
+2025-05-23 09:56:15,282 INFO main Register employee: Yanchik23456
+2025-05-23 10:16:01,129 DEBUG main logout user: Yancheslav
+2025-05-23 10:22:53,263 INFO main Create new realty, name: wewtrhtjegsf
+2025-05-23 13:20:57,572 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>date<ul class="errorlist" id="id_date_error"><li>You must be 18 or older to use this service</li></ul></li></ul>
+2025-05-23 13:22:06,078 INFO main Register employee: ghjfbcjh678
+2025-05-23 13:23:10,108 INFO main Create new realty, name: dbdfbgdfhwewtrhtjegsf
+2025-05-23 13:28:39,654 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>phone_number<ul class="errorlist" id="id_phone_number_error"><li>Phone number must be entered in the format: &#x27;+375(29)XXXXXX&#x27;</li></ul></li></ul>
+2025-05-23 13:31:46,938 INFO main Create new realty, name: dbdfbgdaetsrhdtjfhwewtrhtjegsf
+2025-05-23 14:54:54,202 INFO main Create new query, Owner: Employee, landlord: User2, Realty: TestAgencyRealty
+2025-05-23 14:54:54,860 INFO main Accept query, Owner: Employee, landlord: User2, Realty: TestAgencyRealty
+2025-05-23 14:54:54,882 INFO main Employee: Employee accept query of landlord User2
+2025-05-23 14:54:55,861 ERROR main Don't get ip of user: User2
+2025-05-23 14:54:59,297 INFO main Create new query, Owner: User1, landlord: User2, Realty: TestUserRealty
+2025-05-23 14:55:00,037 INFO main Create new query, Owner: User1, landlord: User2, Realty: TestUserRealty
+2025-05-23 14:55:00,045 INFO main Delete query, Owner: User1, name: TestUserRealty
+2025-05-23 14:55:02,450 INFO main Create new query, Owner: User1, landlord: User2, Realty: TestUserRealty
+2025-05-23 14:55:02,842 INFO main Accept query, Owner: User1, landlord: User2, Realty: TestUserRealty
+2025-05-23 14:55:02,876 INFO main Buy accept query, Owner: User1, landlord: User2, Realty: TestUserRealty
+2025-05-23 14:55:03,312 INFO main Create new query, Owner: Employee, landlord: User2, Realty: TestAgencyRealty
+2025-05-23 14:55:03,648 INFO main Accept query, Owner: Employee, landlord: User2, Realty: TestAgencyRealty
+2025-05-23 14:55:03,651 INFO main Employee: Employee accept query of landlord User2
+2025-05-23 14:55:06,180 INFO main Create new query, Owner: User1, landlord: User2, Realty: TestUserRealty
+2025-05-23 14:55:06,585 INFO main Accept query, Owner: User1, landlord: User2, Realty: TestUserRealty
+2025-05-23 14:55:07,777 ERROR main Don't get ip of user: User2
+2025-05-23 16:34:40,456 DEBUG main logout user: Yancheslav
+2025-05-23 16:42:13,066 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>phone_number<ul class="errorlist" id="id_phone_number_error"><li>Phone number must be entered in the format: &#x27;+375(29)XXXXXX&#x27;</li></ul></li></ul>
+2025-05-23 16:42:51,557 INFO main Register user: jsvdfgfdfikbgdfg
+2025-05-23 16:43:56,760 INFO main Create new realty, name: dbdfbgdasrdtyjfhetsrhdtjfhwewtrhtjegsf
+2025-05-23 16:45:00,319 DEBUG main logout user: jsvdfgfdfikbgdfg
+2025-05-23 16:45:28,765 INFO main auth user: Yancheslav
+2025-05-23 16:48:04,856 DEBUG main logout user: Yancheslav
+2025-05-23 16:48:24,097 INFO main auth user: Yancheslav
+2025-05-23 16:48:54,819 INFO main Create new realty, name: dbdfbgdaetfrghgsrhdtjfhwewtrhtjegsf
+2025-05-23 16:49:17,836 INFO main Create new realty, name: 3r4wrt43t
+2025-05-23 16:51:00,840 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>phone_number<ul class="errorlist" id="id_phone_number_error"><li>Phone number must be entered in the format: &#x27;+375(29)XXXXXX&#x27;</li></ul></li><li>password2<ul class="errorlist" id="id_password2_error"><li>This password is entirely numeric.</li></ul></li></ul>
+2025-05-23 16:51:38,352 DEBUG main logout user: Yancheslav
+2025-05-23 16:52:26,263 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>email<ul class="errorlist" id="id_email_error"><li>Enter a valid email address.</li></ul></li><li>phone_number<ul class="errorlist" id="id_phone_number_error"><li>Phone number must be entered in the format: &#x27;+375(29)XXXXXX&#x27;</li></ul></li><li>password2<ul class="errorlist" id="id_password2_error"><li>This password is too common.</li><li>This password is entirely numeric.</li></ul></li></ul>
+2025-05-23 16:52:46,303 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>email<ul class="errorlist" id="id_email_error"><li>Enter a valid email address.</li></ul></li><li>phone_number<ul class="errorlist" id="id_phone_number_error"><li>Phone number must be entered in the format: &#x27;+375(29)XXXXXX&#x27;</li></ul></li></ul>
+2025-05-23 16:53:17,787 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>phone_number<ul class="errorlist" id="id_phone_number_error"><li>Phone number must be entered in the format: &#x27;+375(29)XXXXXX&#x27;</li></ul></li></ul>
+2025-05-23 16:53:39,899 INFO main Register user: 3ujgfjf
+2025-05-23 16:54:01,064 DEBUG main logout user: 3ujgfjf
+2025-05-23 16:54:20,577 INFO main auth user: Yancheslav
+2025-05-23 17:07:39,221 DEBUG main logout user: Yancheslav
+2025-05-23 17:24:24,180 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>email<ul class="errorlist" id="id_email_error"><li>Enter a valid email address.</li></ul></li><li>phone_number<ul class="errorlist" id="id_phone_number_error"><li>Phone number must be entered in the format: &#x27;+375(29)XXXXXX&#x27;</li></ul></li></ul>
+2025-05-23 17:24:49,031 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>email<ul class="errorlist" id="id_email_error"><li>Enter a valid email address.</li></ul></li></ul>
+2025-05-23 17:25:12,537 INFO main Register user: uj57gfjf
+2025-05-23 17:26:31,616 INFO main Create new query, Owner: Yanchik23456, landlord: uj52437gfjf, Realty: dbdfbgdaetfrghgsrhdtjfhwewtrhtjegsf
+2025-05-23 17:26:34,143 INFO main Delete query, Owner: Yanchik23456, name: dbdfbgdaetfrghgsrhdtjfhwewtrhtjegsf
+2025-05-23 17:27:03,206 INFO main Create new query, Owner: ghjfbcjh678, landlord: uj52437gfjf, Realty: 3r4wrt43t
+2025-05-23 17:27:08,785 DEBUG main logout user: uj52437gfjf
+2025-05-23 17:28:09,830 DEBUG main logout user: 
+2025-05-23 17:28:31,976 INFO main auth user: Yancheslav
+2025-05-23 17:33:48,345 DEBUG main logout user: Yancheslav
+2025-05-23 17:35:10,922 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>email<ul class="errorlist" id="id_email_error"><li>Enter a valid email address.</li></ul></li><li>phone_number<ul class="errorlist" id="id_phone_number_error"><li>Phone number must be entered in the format: &#x27;+375(29)XXXXXX&#x27;</li></ul></li></ul>
+2025-05-23 17:35:40,870 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>email<ul class="errorlist" id="id_email_error"><li>Enter a valid email address.</li></ul></li></ul>
+2025-05-23 17:36:00,247 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>password2<ul class="errorlist" id="id_password2_error"><li>This password is too common.</li></ul></li></ul>
+2025-05-23 17:37:40,747 INFO main Register user: uj5fr7gfjf
+2025-05-23 17:38:40,513 DEBUG main logout user: uj5fr7gfjf
+2025-05-23 17:43:07,010 DEBUG main logout user: Yancheslav
+2025-05-23 17:44:20,143 INFO main auth user: Yancheslav
+2025-05-23 18:16:21,388 DEBUG main logout user: Yancheslav
+2025-05-23 18:17:06,017 DEBUG main Invalid data in RegisterForm, errors: <ul class="errorlist"><li>password2<ul class="errorlist" id="id_password2_error"><li>This password is too common.</li></ul></li></ul>
+2025-05-23 18:17:23,260 INFO main Register user: fgngfuj5fr7gfjf
+2025-05-23 18:17:46,435 INFO main Create new query, Owner: ghjfbcjh678, landlord: fgngfuj5fr7gfjf, Realty: 3r4wrt43t
+2025-05-29 14:25:39,458 DEBUG main Invalid registration data: <ul class="errorlist"><li>date<ul class="errorlist" id="id_date_error"><li>You must be 18 or older to use this service</li></ul></li></ul>
+2025-05-29 14:26:10,657 INFO main User registered: Yan
+2025-05-29 14:27:39,845 DEBUG main Logging out user: Yan
+2025-05-29 14:28:28,174 INFO main User authenticated: Yan
+2025-05-29 14:29:34,639 DEBUG main Logging out user: Yan
+2025-05-29 14:32:14,392 INFO main User authenticated: Yan
+2025-05-29 14:49:36,435 DEBUG main Logging out user: Yan
+2025-05-29 14:52:35,477 INFO main User authenticated: Yan
+2025-05-29 17:02:35,957 DEBUG main Logging out user: Yan
+2025-05-29 17:06:54,963 INFO main User authenticated: YANCHIK
+2025-05-29 17:07:22,409 DEBUG main Logging out user: YANCHIK
+2025-05-29 17:08:56,206 INFO main User authenticated: Yan
+2025-05-29 17:15:15,547 DEBUG main Logging out user: Yan
+2025-05-29 17:15:45,950 INFO main User authenticated: YANCHIK
+2025-05-29 17:16:07,458 DEBUG main Logging out user: YANCHIK
+2025-05-29 17:18:49,177 INFO main User authenticated: Yan
+2025-05-29 17:30:56,448 DEBUG main Logging out user: Yan
+2025-05-29 17:32:46,413 INFO main User authenticated: YANCHIK
+2025-05-29 17:38:04,007 DEBUG main Logging out user: YANCHIK
+2025-05-29 17:38:24,718 INFO main User authenticated: Yan
+2025-05-29 17:38:33,697 DEBUG main Logging out user: Yan
+2025-05-29 17:38:56,465 INFO main User authenticated: YANCHIK
+2025-05-29 17:43:08,335 DEBUG main Logging out user: YANCHIK
+2025-05-29 17:43:47,226 INFO main User authenticated: Yan
+2025-05-29 17:43:59,930 DEBUG main Logging out user: Yan
+2025-05-29 17:44:23,498 INFO main User authenticated: YANCHIK
+2025-05-29 17:49:43,334 DEBUG main Logging out user: YANCHIK
+2025-05-29 17:51:11,932 DEBUG main Invalid registration data: <ul class="errorlist"><li>phone_number<ul class="errorlist" id="id_phone_number_error"><li>Phone number must be entered in the format: &#x27;+375(29)XXXXXX&#x27;</li></ul></li></ul>
+2025-05-29 17:55:09,064 INFO main User registered: цнидемйн
+2025-05-29 18:00:21,105 DEBUG main Logging out user: цнидемйн
+2025-05-29 18:04:46,212 INFO main User authenticated: Yan
+2025-05-29 18:05:43,012 ERROR main Invalid promocode attempt: 1111
+2025-05-29 18:08:53,259 CRITICAL main Stripe checkout creation failed: 'Settings' object has no attribute 'DOMAIN'
+2025-05-29 18:09:07,475 DEBUG main Logging out user: Yan
+2025-05-29 18:09:38,379 INFO main User authenticated: YANCHIK
+2025-05-29 18:11:29,761 DEBUG main Logging out user: YANCHIK
+2025-05-29 18:11:45,815 INFO main User authenticated: Yan
+2025-05-29 18:12:00,374 CRITICAL main Stripe checkout creation failed: 'Settings' object has no attribute 'DOMAIN'
+2025-05-29 18:12:09,518 CRITICAL main Stripe checkout creation failed: 'Settings' object has no attribute 'DOMAIN'
+2025-05-29 18:13:10,453 DEBUG main Logging out user: Yan
+2025-05-29 18:17:50,258 DEBUG main Logging out user: YANCHIK
+2025-05-29 18:18:13,644 INFO main User authenticated: Yan
+2025-05-29 18:19:26,909 DEBUG main Logging out user: Yan
+2025-05-29 18:19:43,215 INFO main User authenticated: YANCHIK
+2025-05-29 18:22:59,938 DEBUG main Logging out user: YANCHIK
+2025-05-29 18:27:04,086 INFO main User authenticated: Yan
+2025-05-29 18:27:10,090 DEBUG main Logging out user: Yan
+2025-05-29 18:27:24,965 INFO main User authenticated: YANCHIK
+2025-05-29 18:31:21,773 DEBUG main Logging out user: YANCHIK
+2025-05-29 18:31:45,170 INFO main User authenticated: Yan
+2025-05-29 18:35:12,214 DEBUG main Logging out user: Yan
+2025-05-29 18:35:36,125 DEBUG main Invalid login data: <ul class="errorlist"><li>__all__<ul class="errorlist nonfield"><li>Please enter a correct username and password. Note that both fields may be case-sensitive.</li></ul></li></ul>
+2025-05-29 18:35:52,642 INFO main User authenticated: YANCHIK
+2025-05-29 18:38:30,161 DEBUG main Logging out user: YANCHIK
+2025-05-29 18:41:07,085 INFO main User authenticated: YANCHIK

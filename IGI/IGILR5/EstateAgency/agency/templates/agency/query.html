@@ -1,0 +1,201 @@
+{% extends 'agency/base.html' %}
+{% load static %}
+{% load agency_tags %}
+{% load tz %}
+{% block title %}Your realtys{% endblock %}
+
+{% block content %}
+	{% is_employee request.user as is_emp%}
+
+    <link rel="stylesheet" href="{% static 'store/css/CategoriesCartCheckout.css' %}">
+	<div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">
+		{% if is_emp %}
+		<h3 style="display: inline-block; float: right"><strong>Query to buy</strong></h3>
+		{% else %}
+		<h3 style="display: inline-block; float: right"><strong>People queries to buy you realty</strong></h3>
+		{% endif %}
+		<hr>
+      {%for query in querys_to%}
+        <h6><strong>Landlord: {{query.landlord.username}}</strong></h6>
+		<p>Query Created: {{query.created_at|localtime|date:"d/m/Y, H:i"}}</p>
+		<p>Date Created UTC: {{query.created_at|utc|date:"d/m/Y, H:i"}}</p>
+		<div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
+			<img style="height: 300px;" class="thumbnail" src="{{query.realty.photo.url}}">
+			<div class="box-element product">
+				<h6><strong>{{query.realty.name}}</strong></h6>
+				<h6><strong>{{query.realty.address.city}}</strong></h6>
+				<hr>
+				<h4 style="display: inline-block; float: right"><strong>${{query.realty.price}}</strong></h4>
+				<a class="btn btn-outline-success" href="{{query.realty.get_absolute_url}}">View</a>
+				<a class="btn btn-outline-success" href="{{query.accept_query_url}}">Accept</a>
+
+				<a class="btn btn-outline-success" href="{{query.delete_url}}">Deny</a>
+			</div>
+		</div>
+		{%endfor%}
+		{% if querys_from %}
+			<h3 style="display: inline-block; float: right"><strong>You query to buy</strong></h3>
+			<hr>
+			{%for query in querys_from%}
+			{% is_employee query.owner as owner_is_emp %}
+			{% if not owner_is_emp %}
+			<h6><strong>Owner: {{query.owner.username}}</strong></h6>
+			{% else %}
+			<h6><strong>Employee: {{query.owner.username}}</strong></h6>
+
+			{% endif %}
+			<p>Date Created: {{query.created_at|localtime|date:"d/m/Y, H:i"}}</p>
+			<p>Date Created UTC: {{query.created_at|utc|date:"d/m/Y, H:i"}}</p>
+			<div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
+				<img style="height: 300px;" class="thumbnail" src="{{query.realty.photo.url}}">
+				<div class="box-element product">
+
+					<h6><strong>{{query.realty.name}}</strong></h6>
+					<hr>
+					<a class="btn btn-outline-success" href="{{realty.get_absolute_url}}">View</a>
+					<a class="btn btn-outline-success" href="{{query.delete_url}}">Сancel</a>
+					<h4 style="display: inline-block; float: right"><strong>${{query.realty.price}}</strong></h4>
+				</div>
+			</div>
+			{%endfor%}
+		{% endif %}
+
+
+
+	</div>
+
+{% endblock %}
+ <style>
+@media (min-width: 0){
+    .g-pa-30 {
+        padding: 2.14286rem !important;
+    }
+}
+
+.g-font-size-12 {
+    font-size: 0.85714rem !important;
+}
+
+.media-comment {
+    margin-top:20px
+}
+
+ @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+*
+{
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+{
+    text-decoration: none;
+}
+
+.product-card {
+    width: 380px;
+    position: relative;
+    box-shadow: 0 2px 7px #dfdfdf;
+    margin: 50px auto;
+    background: #fafafa;
+}
+
+.product-tumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    background: #f0f0f0;
+}
+
+.product-tumb img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.product-details {
+    padding: 30px;
+}
+
+.product-catagory {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ccc;
+    margin-bottom: 18px;
+}
+
+.product-details h4 {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    color: black;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.product-details p {
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 18px;
+    color: #999;
+}
+
+.product-bottom-details {
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.product-bottom-details div {
+    float: left;
+    width: 50%;
+}
+
+.product-price {
+    font-size: 18px;
+    color: black;
+    font-weight: 600;
+}
+
+.product-price small {
+    font-size: 80%;
+    font-weight: 400;
+    text-decoration: line-through;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.product-links {
+    text-align: right;
+}
+.size{
+	text-align: left;
+}
+.product-links a {
+    display: inline-block;
+    margin-left: 5px;
+    color: #e1e1e1;
+    transition: 0.3s;
+    font-size: 17px;
+    height: 20px;
+}
+
+.product-links img {
+    height: 20px;
+    padding-right: 3px;
+    transition: .2s;
+}
+
+.product-links img:hover {
+    scale: 108%;
+}
+
+.product-links img:focus {
+    color: greenyellow;
+}
+    </style>

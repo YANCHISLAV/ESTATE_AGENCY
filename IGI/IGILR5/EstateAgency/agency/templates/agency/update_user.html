@@ -1,0 +1,12 @@
+{% extends 'agency/base.html' %}
+{% block title %}Обновить профиль{% endblock %}
+{% block content %}
+  <div class="card-custom mx-auto" style="max-width: 520px;">
+    <h2 class="mb-4 section-title">Обновить профиль</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-main w-100">Сохранить изменения</button>
+    </form>
+  </div>
+{% endblock %}
