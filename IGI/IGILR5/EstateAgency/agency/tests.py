@@ -196,7 +196,6 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['realty'], self.test_agency_realty)
         self.assertEqual(response.context['landlord'], self.user1)
-        self.assertIn("STRIPE_PUBLIC_KEY", response.context)
 
     def test_pay_agency_realty(self):
         response = self.client2.get(reverse('create_quary', kwargs={'realty_slug':self.test_agency_realty.slug}))

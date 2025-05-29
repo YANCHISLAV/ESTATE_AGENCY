@@ -30,8 +30,8 @@ urlpatterns = [
     path('query/delete/<int:query_id>/', views.QueryManagementView.as_view(), name='delete_query'),   # DELETE
     path('query/accept/<int:query_id>/', views.QueryManagementView.as_view(), name='accept_query'),   # PUT
 
-    # Покупка и Stripe
-    path('buy_realty/<slug:realty_slug>/', views.PaymentView.as_view(), name='buy_realty'),           # GET (форма), POST (stripe)
+    # Покупка недвижимости
+    path('buy_realty/<slug:realty_slug>/', views.PaymentView.as_view(), name='buy_realty'),
     path('success/<slug:realty_slug>/<int:landlord_id>/', views.PaymentView.as_view(), name='success'), # PUT
     path('cancel/', views.cancel, name='cancel'),
 

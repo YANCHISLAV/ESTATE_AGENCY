@@ -187,4 +187,7 @@ TIME_ZONE = "UTC"
 
 LOGIN_URL = '/login/'
 
+# Добавьте ваш домен для корректной работы Stripe Checkout
+DOMAIN = 'http://localhost:8000'  # Замените на ваш домен в продакшене
+
 

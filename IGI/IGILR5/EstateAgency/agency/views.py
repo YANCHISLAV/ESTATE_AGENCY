@@ -30,7 +30,6 @@ from django.views import View
 from django.views.generic import CreateView, UpdateView, ListView
 from dateutil.relativedelta import relativedelta
 import matplotlib.pyplot as plt
-import stripe
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
@@ -42,7 +41,6 @@ from .models import Address, Category, Query, Realty, Transaction, PromoCode, Ar
 from .utils import get_ip_adress, get_info_user_by_ip, get_all_employees, get_all_clients, filter_sort_realties
 
 main_logger = logging.getLogger('main')
-stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # --- Утилиты для повторяющихся действий ---
 def send_email(subject, message, recipient_list):
@@ -356,7 +354,7 @@ class QueryManagementView(LoginRequiredMixin, View):
             Query.objects.filter(realty=realty).delete()
             return redirect("main")
 
-# --- Покупка и Stripe ---
+# --- Покупка недвижимости ---
 class PaymentView(LoginRequiredMixin, View):
     def get(self, request, realty_slug):
         if request.user.is_superuser:
