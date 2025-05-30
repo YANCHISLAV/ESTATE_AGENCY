@@ -12,11 +12,6 @@
     padding: 0;
 }
 
-
-{
-    text-decoration: none;
-}
-
 .product-card {
     width: 380px;
     position: relative;
@@ -125,17 +120,7 @@
 
     </style>
 <div class="product-card" style="box-shadow:hsl(0, 0%, 80%) 0 0 16px; border-radius: 4px">
-	<div class="product-tumb">
-		<img src="{{user.photo.url}}" alt="">
-	</div>
-
-	<h6><strong>Username: {{user.username}}</strong></h6>
-	<h6><strong>First_name: {{user.first_name}}</strong></h6>
-	<h6><strong>Last name: {{user.last_name}}</strong></h6>
-	<h6><strong>Email: {{user.email}}</strong></h6>
-	{% if request.user == user %}
-	<a class="btn btn-outline-success" href="{{user.update_data_url}}">Update Data</a>
-	{% endif %}
+	<!-- Блок аватара удалён -->
 </div>
 
 <div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">

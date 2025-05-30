@@ -96,6 +96,10 @@
 </head>
 <body>
 <div class="bg-pattern"></div>
+<!-- Таймзона в левом верхнем углу -->
+<div style="position:fixed;top:70px;left:18px;z-index:1050;">
+  <span class="badge bg-info text-dark" style="font-size:0.95rem;opacity:0.92;">Таймзона: {{ request.session.django_timezone|default:"UTC" }}</span>
+</div>
 <nav class="navbar navbar-expand-lg main-nav">
   <div class="container">
     <a class="navbar-brand fw-bold text-info" href="{% url 'main' %}">Agency Realty</a>
@@ -112,9 +116,9 @@
           <li class="nav-item"><a class="nav-link lk" href="{% url 'logout' %}">Logout</a></li>
         {% elif is_emp %}
           <li class="nav-item"><a class="nav-link lk" href="{% url 'logout' %}">Logout</a></li>
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'realties' %}">Агентская недвижимость</a></li>
         {% else %}
-          <li class="nav-item"><a class="nav-link lk" href="{% url 'realties' %}?agency=0">Пользовательская недвижимость</a></li>
-          <li class="nav-item"><a class="nav-link lk" href="{% url 'realties' %}?agency=1">Агентская недвижимость</a></li>
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'realties' %}">Агентская недвижимость</a></li>
           {% if request.user.is_authenticated %}
             <li class="nav-item"><a class="nav-link lk" href="{{request.user.get_absolute_url}}">Профиль</a></li>
             <li class="nav-item"><a class="nav-link lk" href="{% url 'news' %}">Новости</a></li>

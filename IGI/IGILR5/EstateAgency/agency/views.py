@@ -136,20 +136,17 @@ class RealtyListView(ListView):
     template_name = 'agency/realties.html'
     context_object_name = 'realties'
     def get_queryset(self):
-        is_agency = self.request.GET.get('agency', '0') == '1'
-        all_employees = get_all_employees()
-        if is_agency:
-            realties = Realty.objects.filter(landlord__isnull=True, owner__in=all_employees)
-        else:
-            realties = Realty.objects.filter(~Q(owner__in=all_employees), landlord__isnull=True)
+        realties = Realty.objects.filter(is_sold=False)
+        # Фильтрация по категории
+        category_id = self.request.GET.get('category')
+        if category_id:
+            realties = realties.filter(cat_id=category_id)
         realties = filter_sort_realties(self.request, realties)
-        if self.request.user.is_authenticated:
-            realties = realties.filter(~Q(owner=self.request.user))
         return realties
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['Agency'] = self.request.GET.get('agency', '0') == '1'
-        context['cats'] = Category.objects.all()
+        from .models import Category
+        context['categories'] = Category.objects.all()
         return context
 
 class RealtyDetailView(View):
@@ -165,11 +162,7 @@ class CategoryRealtyView(ListView):
         category_slug = self.kwargs['category_slug']
         cat = get_object_or_404(Category, slug=category_slug)
         all_employees = get_all_employees()
-        is_agency = self.request.GET.get('agency', '0') == '1'
-        if is_agency:
-            realties = Realty.objects.filter(landlord__isnull=True, cat=cat, owner__in=all_employees)
-        else:
-            realties = Realty.objects.filter(~Q(owner__in=all_employees), landlord__isnull=True, cat=cat)
+        realties = Realty.objects.filter(landlord__isnull=True, cat=cat, owner__in=all_employees)
         if self.request.user.is_authenticated:
             realties = realties.filter(~Q(owner=self.request.user))
         return filter_sort_realties(self.request, realties)
@@ -179,12 +172,10 @@ class CategoryRealtyView(ListView):
         info_user = get_info_user_by_ip(get_ip_adress(self.request))
         user_city = info_user.get('city')
         realties = context['realties']
-        realties_city_user = realties.filter(address__city=user_city) if user_city else None
+        realtys_city_user = realties.filter(address__city=user_city) if user_city else None
         context.update({
-            'Agency': self.request.GET.get('agency', '0') == '1',
-            'cats': Category.objects.all(),
             'cat_selected': cat,
-            'realtys_city_user': realties_city_user
+            'realtys_city_user': realtys_city_user
         })
         return context
 

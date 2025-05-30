@@ -128,3 +128,30 @@
 2025-05-29 18:41:07,085 INFO main User authenticated: YANCHIK
 2025-05-29 20:36:28,183 DEBUG main Logging out user: YANCHIK
 2025-05-29 20:36:45,947 INFO main User authenticated: Yan
+2025-05-30 08:43:53,297 DEBUG main Logging out user: Yan
+2025-05-30 08:44:51,776 INFO main User authenticated: Yan
+2025-05-30 08:46:45,291 DEBUG main Logging out user: Yan
+2025-05-30 08:48:35,489 DEBUG main Invalid registration data: <ul class="errorlist"><li>password2<ul class="errorlist" id="id_password2_error"><li>This password is too common.</li></ul></li></ul>
+2025-05-30 08:52:06,189 INFO main User registered: NeYan
+2025-05-30 08:52:27,479 DEBUG main Logging out user: NeYan
+2025-05-30 08:52:41,630 INFO main User authenticated: YANCHIK
+2025-05-30 08:53:52,435 DEBUG main Logging out user: YANCHIK
+2025-05-30 08:58:33,757 DEBUG main Logging out user: YANCHIK
+2025-05-30 08:59:18,739 INFO main User authenticated: Yan
+2025-05-30 09:05:24,988 DEBUG main Logging out user: Yan
+2025-05-30 09:05:48,252 INFO main User authenticated: YANCHIK
+2025-05-30 09:09:15,229 DEBUG main Logging out user: YANCHIK
+2025-05-30 09:10:33,492 DEBUG main Logging out user: YANCHIK
+2025-05-30 09:14:00,448 INFO main User authenticated: NeYan
+2025-05-30 09:14:51,429 DEBUG main Logging out user: NeYan
+2025-05-30 09:14:58,330 DEBUG main Invalid login data: <ul class="errorlist"><li>__all__<ul class="errorlist nonfield"><li>Please enter a correct username and password. Note that both fields may be case-sensitive.</li></ul></li></ul>
+2025-05-30 09:20:12,269 INFO main User authenticated: Yan
+2025-05-30 09:20:23,084 DEBUG main Logging out user: Yan
+2025-05-30 09:20:36,012 INFO main User authenticated: YANCHIK
+2025-05-30 09:20:53,732 DEBUG main Logging out user: YANCHIK
+2025-05-30 09:25:57,238 INFO main User authenticated: Yan
+2025-05-30 09:27:47,967 DEBUG main Logging out user: Yan
+2025-05-30 09:30:10,103 INFO main User authenticated: Yan
+2025-05-30 09:30:21,043 DEBUG main Logging out user: Yan
+2025-05-30 09:30:34,205 INFO main User authenticated: YANCHIK
+2025-05-30 09:43:55,825 DEBUG main Logging out user: YANCHIK

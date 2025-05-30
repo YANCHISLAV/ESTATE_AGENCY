@@ -2,46 +2,51 @@
 {%load static %}
 {% block title %}{{title}}{% endblock %}
 {% block content %}
-<div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">
-	<div style="display:flex">
-		<label style="white-space:nowrap">Filter price</label>
-		<input class="form-control search-input me-2" type="number" min="1" placeholder="Min price" aria-label="Search" id ="min_area" >
-		<input class="form-control search-input me-2" type="number" min="1" placeholder="Max price" aria-label="Search" id ="max_area" >
-		<button id="btn_filter_price" class="btn btn-dark">GET</button>
-		<input  class="form-control search-input me-2" type="search" placeholder="Search" aria-label="Search" id ="search_area">
-		<button id="btn_filter_name" class="btn btn-dark">FIND</button>
-		<select id="select-category" class="form-select me-2">
-			<option value="">All categories</option>
-			{% for cat in cats %}
-				<option value="{{ cat.slug }}" {% if cat == cat_selected %}selected{% endif %}>{{ cat.name }}</option>
-			{% endfor %}
-		</select>
-		<select id="select-sort">
-			<option value="name">Sort by name</option>
-			<option value="cat">Sort by category</option>
-			<option value="price">Sort by price(Ascending)</option>
-			<option value="-price">Sort by price(Descending)</option>
-		</select>
-		<button id="btn_delete_filter"  style="white-space:nowrap" class="btn btn-dark">Delete all filters</button>
-	</div>
-	<h3 style="display: inline-block; float: right"><strong>All realities of other users</strong></h3>
-		<hr>
-		{%for realty in realties %}
-		<div style="width: 274px; height: 300px; flex-basis: 25%; max-width: 274px; margin-bottom: 112px;" class="col-lg-4">
-			<img style="height: 300px;" class="thumbnail" src="{{realty.photo.url}}">
-			<div class="box-element product">
-				<h6><strong>{{realty.name}}</strong></h6>
-				<h6><strong>{{realty.address.city}}</strong></h6>
-				<div class="mb-2"><span class="category-label">{{ realty.cat.name }}</span></div>
-				<hr>
-				<a class="btn btn-outline-success" href="{{realty.get_absolute_url}}">View</a>
-				<h4 style="display: inline-block; float: right"><strong>${{realty.price}}</strong></h4>
-
-
+<div class="container mt-4">
+	<h2 class="mb-4">Агентская недвижимость</h2>
+	<form method="get" class="row g-3 align-items-end mb-4 p-3 bg-light rounded shadow-sm">
+		<div class="col-md-3">
+			<label for="search_name" class="form-label">Название</label>
+			<input type="text" class="form-control" id="search_name" name="search_name" value="{{ request.GET.search_name|default:'' }}" placeholder="Поиск по названию">
+		</div>
+		<div class="col-md-2">
+			<label for="min_price" class="form-label">Цена от</label>
+			<input type="number" class="form-control" id="min_price" name="min_price" min="0" value="{{ request.GET.min_price|default:'' }}" placeholder="от">
+		</div>
+		<div class="col-md-2">
+			<label for="max_price" class="form-label">Цена до</label>
+			<input type="number" class="form-control" id="max_price" name="max_price" min="0" value="{{ request.GET.max_price|default:'' }}" placeholder="до">
+		</div>
+		<div class="col-md-3">
+			<label for="category" class="form-label">Категория</label>
+			<select class="form-select" id="category" name="category">
+				<option value="">Все категории</option>
+				{% for cat in categories %}
+					<option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:'s' %}selected{% endif %}>{{ cat.name }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="col-md-2 d-grid">
+			<button type="submit" class="btn btn-primary">Фильтровать</button>
+		</div>
+	</form>
+	<div class="row">
+		{% for realty in realties %}
+		<div class="col-md-4 mb-4">
+			<div class="card h-100 shadow-sm">
+				<img src="{{ realty.photo.url }}" class="card-img-top" alt="{{ realty.name }}" style="height: 240px; object-fit: cover;">
+				<div class="card-body">
+					<h5 class="card-title">{{ realty.name }}</h5>
+					<p class="card-text">{{ realty.address.city }}</p>
+					<p class="card-text fw-bold text-primary">${{ realty.price }}</p>
+					<a href="{{ realty.get_absolute_url }}" class="btn btn-outline-success">Подробнее</a>
+				</div>
 			</div>
 		</div>
-
-	{%endfor%}
+		{% empty %}
+		<div class="col-12 text-center text-muted py-5">Нет объектов по выбранным фильтрам.</div>
+		{% endfor %}
+	</div>
 </div>
 <script>
 const selectSort = document.getElementById('select-sort');

@@ -13,36 +13,40 @@ import zoneinfo
 from django.utils import timezone
 
 def get_ip_adress(request):
-
-
     if settings.DEBUG:
-        response = requests.get('https://api.ipify.org/?format=json')
-        my_ip = response.json()['ip']
-        return my_ip
+        try:
+            response = requests.get('https://api.ipify.org/?format=json', timeout=2)
+            response.raise_for_status()
+            my_ip = response.json().get('ip', None)
+            return my_ip
+        except Exception:
+            return '127.0.0.1'
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
     else:
         ip = request.META.get('REMOTE_ADDR')
-
     return ip
 
 def get_info_user_by_ip(ip):
-    response = requests.get(f'https://ipinfo.io/{ip}/geo')
-    return response.json()
+    try:
+        response = requests.get(f'https://ipinfo.io/{ip}/geo', timeout=2)
+        response.raise_for_status()
+        return response.json()
+    except Exception:
+        return {}
 
 def get_all_employees():
-    employee_group,created = Group.objects.get_or_create(name='Employee')
-    all_employees = User.objects.filter(groups=employee_group)
-    return all_employees
-    #return User.objects.all()
+    employee_group = Group.objects.filter(name='Employee').first()
+    if not employee_group:
+        return User.objects.none()
+    return User.objects.filter(groups=employee_group)
 
 def get_all_clients():
-    employee_group,created = Group.objects.get_or_create(name='Employee')
-    all_clients = User.objects.filter(~Q(groups=employee_group), is_superuser=False)
-    return all_clients
-    #return User.objects.all()
-
+    employee_group = Group.objects.filter(name='Employee').first()
+    if not employee_group:
+        return User.objects.filter(is_superuser=False)
+    return User.objects.filter(~Q(groups=employee_group), is_superuser=False)
 
 def filter_sort_realties(request, realties):
     min_input = request.GET.get('min_price')
@@ -55,8 +59,11 @@ def filter_sort_realties(request, realties):
     else:
         realties = realties.order_by('name')
     if selectedEmployee:
-        employee = User.objects.get(username=selectedEmployee)
-        realties = realties.filter(owner=employee)
+        try:
+            employee = User.objects.get(username=selectedEmployee)
+            realties = realties.filter(owner=employee)
+        except User.DoesNotExist:
+            pass
     if search:
         realties = realties.filter(name__icontains=search)
     if min_input and max_input:
@@ -66,10 +73,6 @@ def filter_sort_realties(request, realties):
     elif max_input:
         realties = realties.filter(price__lte=max_input)
     return realties
-
-
-
-
 
 class TimezoneMiddleware:
     def __init__(self, get_response):
@@ -83,13 +86,11 @@ class TimezoneMiddleware:
             if 'timezone' in response:
                 tzname = response['timezone']
             else:
-                tzname =settings.TIME_ZONE
+                tzname = settings.TIME_ZONE
             request.session["django_timezone"] = tzname
             timezone.activate(zoneinfo.ZoneInfo(tzname))
-
         response = self.get_response(request)
         return response
-
     def process_template_response(self, request, response):
         if hasattr(response,'context_data'):
             tzname = request.session.get("django_timezone")

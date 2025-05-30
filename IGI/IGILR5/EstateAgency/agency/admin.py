@@ -49,7 +49,7 @@ class TransactionRealtyInline(admin.TabularInline):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('display_status','username','first_name','last_name', 'date', 'phone_number', 'photo')
+    list_display = ('display_status','username','first_name','last_name', 'date', 'phone_number')
     inlines = [RealtyOwnerInline, RealtyLandlordInline, QueryLandlordInline,QueryOwnerInline]
     list_filter = ('is_superuser',)
     ordering = ('-date',)
@@ -88,8 +88,6 @@ class Transaction(admin.ModelAdmin):
     list_display = ('realty', 'price')
 
 
-admin.site.register(InformationCompany)
-admin.site.register(PrivacyPolicy)
 admin.site.register(PromoCode)
 admin.site.register(Question)
 admin.site.register(Vacancy)

@@ -7,14 +7,11 @@ from django.conf import settings
 import datetime
 
 
-
-
 class User(AbstractUser):
     date = models.DateField(null=True, validators=[MaxValueValidator(limit_value=datetime.date.today() - datetime.timedelta(days=18*365),   message="You must be 18 or older to use this service")])
     phone_regex = RegexValidator(regex=r'^(\+375)?\((29|33|25)\)\d{7}$',
                                  message="Phone number must be entered in the format: '+375(29)XXXXXX'")
     phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
-    photo = models.ImageField(upload_to='avatars', default='default_avatar.png')
     def get_absolute_url(self):
         return reverse('profile_user', kwargs={'pk': self.id})
 
@@ -31,7 +28,6 @@ class User(AbstractUser):
             return 'Employee'
         else:
             return 'Client'
-
 
 
 class Address(models.Model):
@@ -97,11 +93,6 @@ class Query(models.Model):
 
     def delete_url(self):
         return reverse('delete_query', kwargs={'query_id': self.id})
-
-
-
-
-
 
 
 class Transaction(models.Model):
