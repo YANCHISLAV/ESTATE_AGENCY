@@ -112,22 +112,30 @@
         {% if request.user.is_superuser %}
           <li class="nav-item"><a class="nav-link lk" href="{% url 'admin_info' %}">Admin Info</a></li>
           <li class="nav-item"><a class="nav-link lk" href="{% url 'news' %}">Новости</a></li>
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'faq' %}">FAQ</a></li>
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'glossary' %}">Словарь</a></li>
           <li class="nav-item"><a class="nav-link lk" href="{% url 'privacy' %}">Политика</a></li>
           <li class="nav-item"><a class="nav-link lk" href="{% url 'logout' %}">Logout</a></li>
         {% elif is_emp %}
           <li class="nav-item"><a class="nav-link lk" href="{% url 'logout' %}">Logout</a></li>
           <li class="nav-item"><a class="nav-link lk" href="{% url 'realties' %}">Агентская недвижимость</a></li>
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'faq' %}">FAQ</a></li>
+          <li class="nav-item"><a class="nav-link lk" href="{% url 'glossary' %}">Словарь</a></li>
         {% else %}
           <li class="nav-item"><a class="nav-link lk" href="{% url 'realties' %}">Агентская недвижимость</a></li>
           {% if request.user.is_authenticated %}
             <li class="nav-item"><a class="nav-link lk" href="{{request.user.get_absolute_url}}">Профиль</a></li>
             <li class="nav-item"><a class="nav-link lk" href="{% url 'news' %}">Новости</a></li>
+            <li class="nav-item"><a class="nav-link lk" href="{% url 'faq' %}">FAQ</a></li>
+            <li class="nav-item"><a class="nav-link lk" href="{% url 'glossary' %}">Словарь</a></li>
             <li class="nav-item"><a class="nav-link lk" href="{% url 'privacy' %}">Политика</a></li>
             <li class="nav-item"><a class="nav-link lk" href="{% url 'logout' %}">Выйти</a></li>
           {% else %}
             <li class="nav-item"><a class="nav-link lk" href="{% url 'register' %}">Регистрация</a></li>
             <li class="nav-item"><a class="nav-link lk" href="{% url 'login' %}">Вход</a></li>
             <li class="nav-item"><a class="nav-link lk" href="{% url 'news' %}">Новости</a></li>
+            <li class="nav-item"><a class="nav-link lk" href="{% url 'faq' %}">FAQ</a></li>
+            <li class="nav-item"><a class="nav-link lk" href="{% url 'glossary' %}">Словарь</a></li>
             <li class="nav-item"><a class="nav-link lk" href="{% url 'privacy' %}">Политика</a></li>
           {% endif %}
         {% endif %}
@@ -151,7 +159,18 @@
         <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Real Estate" />
         <h1>Добро пожаловать в Agency Realty!</h1>
         <p>Современная платформа для поиска, покупки и продажи недвижимости.<br>Откройте новые возможности вместе с нами!</p>
+        <div class="mt-4 d-flex flex-column align-items-center">
+          <label for="calendar-main" class="form-label mb-2" style="font-size:1.1rem;">Выберите дату и время (ваш часовой пояс):</label>
+          <input type="datetime-local" id="calendar-main" class="form-control mb-2" style="max-width:260px;">
+          <div id="timezone-info" class="text-light small"></div>
+        </div>
       </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          document.getElementById('timezone-info').textContent = 'Ваш часовой пояс: ' + tz;
+        });
+      </script>
     {% endif %}
   {% endblock %}
 </div>

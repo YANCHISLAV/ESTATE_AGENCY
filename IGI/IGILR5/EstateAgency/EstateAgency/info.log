@@ -155,3 +155,53 @@
 2025-05-30 09:30:21,043 DEBUG main Logging out user: Yan
 2025-05-30 09:30:34,205 INFO main User authenticated: YANCHIK
 2025-05-30 09:43:55,825 DEBUG main Logging out user: YANCHIK
+2025-05-30 13:16:18,491 DEBUG main Invalid registration data: <ul class="errorlist"><li>username<ul class="errorlist" id="id_username_error"><li>A user with that username already exists.</li></ul></li></ul>
+2025-05-30 13:16:49,285 INFO main User registered: qwerty
+2025-05-30 13:17:23,516 DEBUG main Logging out user: qwerty
+2025-05-30 13:19:46,174 DEBUG main Invalid registration data: <ul class="errorlist"><li>date<ul class="errorlist" id="id_date_error"><li>You must be 18 or older to use this service</li></ul></li><li>password2<ul class="errorlist" id="id_password2_error"><li>This password is too common.</li></ul></li></ul>
+2025-05-30 13:21:11,560 DEBUG main Invalid registration data: <ul class="errorlist"><li>password2<ul class="errorlist" id="id_password2_error"><li>This password is too common.</li></ul></li></ul>
+2025-05-30 13:21:43,323 INFO main User registered: qwertyqwerty
+2025-05-30 13:23:42,453 DEBUG main Logging out user: qwertyqwerty
+2025-05-30 13:30:58,147 INFO main User authenticated: Yan
+2025-05-30 13:38:50,604 DEBUG main Logging out user: Yan
+2025-05-30 13:40:30,064 INFO main User authenticated: Yan
+2025-05-30 13:41:22,579 DEBUG main Logging out user: Yan
+2025-05-30 13:41:51,388 INFO main User authenticated: YANCHIK
+2025-05-30 13:43:15,218 DEBUG main Logging out user: YANCHIK
+2025-05-30 16:06:31,071 INFO main User authenticated: Yan
+2025-05-30 16:06:42,018 DEBUG main Logging out user: Yan
+2025-05-30 16:06:59,433 INFO main User authenticated: YANCHIK
+2025-05-30 16:07:17,000 DEBUG main Logging out user: YANCHIK
+2025-05-30 16:14:14,674 INFO main User registered: GOYDENKOZ
+2025-05-30 16:15:03,364 DEBUG main Logging out user: GOYDENKOZ
+2025-05-30 16:15:18,559 INFO main User authenticated: Yan
+2025-05-30 16:19:46,689 DEBUG main Logging out user: Yan
+2025-05-30 16:20:14,173 INFO main User authenticated: GOYDENKOZ
+2025-05-30 16:21:43,665 DEBUG main Logging out user: GOYDENKOZ
+2025-05-30 16:22:26,155 INFO main User authenticated: Yan
+2025-05-30 16:24:38,479 DEBUG main Logging out user: Yan
+2025-05-30 16:24:53,422 INFO main User authenticated: YANCHIK
+2025-05-30 16:25:58,293 DEBUG main Logging out user: YANCHIK
+2025-05-30 16:37:30,468 INFO main User authenticated: Yan
+2025-05-30 16:40:47,632 DEBUG main Logging out user: Yan
+2025-05-30 16:41:01,559 INFO main User authenticated: GOYDENKOZ
+2025-05-30 16:45:18,119 DEBUG main Logging out user: GOYDENKOZ
+2025-05-30 16:45:45,595 INFO main User authenticated: Yan
+2025-05-30 16:46:00,393 DEBUG main Logging out user: Yan
+2025-05-30 16:49:58,232 DEBUG main Invalid login data: <ul class="errorlist"><li>__all__<ul class="errorlist nonfield"><li>Please enter a correct username and password. Note that both fields may be case-sensitive.</li></ul></li></ul>
+2025-05-30 16:50:13,187 DEBUG main Invalid login data: <ul class="errorlist"><li>__all__<ul class="errorlist nonfield"><li>Please enter a correct username and password. Note that both fields may be case-sensitive.</li></ul></li></ul>
+2025-05-30 16:50:31,822 INFO main User authenticated: Yan
+2025-05-30 16:50:43,823 DEBUG main Logging out user: Yan
+2025-05-30 16:51:28,110 INFO main User registered: GOYDENKOZ1
+2025-05-30 16:51:50,790 DEBUG main Logging out user: GOYDENKOZ1
+2025-05-30 16:52:06,023 INFO main User authenticated: YANCHIK
+2025-05-30 16:52:32,341 DEBUG main Logging out user: YANCHIK
+2025-05-30 16:55:44,584 INFO main User registered: GOYDENKOZ12
+2025-05-30 16:56:35,242 DEBUG main Logging out user: GOYDENKOZ12
+2025-05-30 16:56:55,053 INFO main User authenticated: YANCHIK
+2025-05-30 16:58:12,535 DEBUG main Logging out user: YANCHIK
+2025-05-30 16:58:51,903 INFO main User registered: 234rtwegf
+2025-05-30 17:00:10,133 DEBUG main Logging out user: 234rtwegf
+2025-05-30 17:01:13,264 DEBUG main Invalid registration data: <ul class="errorlist"><li>date<ul class="errorlist" id="id_date_error"><li>Вам должно быть не менее 18 лет (с точностью до минут) для регистрации.</li></ul></li></ul>
+2025-05-30 17:01:47,996 INFO main User authenticated: YANCHIK
+2025-05-30 17:02:11,524 DEBUG main Logging out user: YANCHIK

@@ -8,10 +8,11 @@ import datetime
 
 
 class User(AbstractUser):
-    date = models.DateField(null=True, validators=[MaxValueValidator(limit_value=datetime.date.today() - datetime.timedelta(days=18*365),   message="You must be 18 or older to use this service")])
-    phone_regex = RegexValidator(regex=r'^(\+375)?\((29|33|25)\)\d{7}$',
+    date = models.DateField(null=True)
+    phone_regex = RegexValidator(regex=r'^\+375\)?\((29|33|25)\)\d{7}$',
                                  message="Phone number must be entered in the format: '+375(29)XXXXXX'")
     phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
+    photo = models.ImageField(upload_to='avatars', default='avatars/default_avatar.png')
     def get_absolute_url(self):
         return reverse('profile_user', kwargs={'pk': self.id})
 
@@ -108,6 +109,7 @@ class Article(models.Model):
     publisher = models.ForeignKey('User', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     text = models.TextField()
+    photo = models.ImageField(upload_to='news_photos', blank=True, null=True)
 
 class InformationCompany(models.Model):
     information = models.TextField()

@@ -119,8 +119,22 @@
 
 
     </style>
-<div class="product-card" style="box-shadow:hsl(0, 0%, 80%) 0 0 16px; border-radius: 4px">
-	<!-- Блок аватара удалён -->
+<div class="container" style="max-width: 900px; margin: 40px auto 0 auto;">
+  <div class="row align-items-center">
+    {% if user.photo and user.photo.url != '/media/avatars/default_avatar.png' %}
+      <div class="col-md-4 text-center mb-4 mb-md-0">
+        <img src="{{ user.photo.url }}" alt="Аватар пользователя" style="border-radius: 50%; width: 180px; height: 180px; object-fit: cover; box-shadow: 0 2px 16px rgba(0,0,0,0.10);">
+      </div>
+    {% endif %}
+    <div class="col-md-8">
+      <h2 class="fw-bold mb-2">{{ user.username }}</h2>
+      <div class="mb-2 text-muted">{{ user.first_name }} {{ user.last_name }}</div>
+      <div class="mb-2">Email: <b>{{ user.email }}</b></div>
+      <div class="mb-2">Телефон: <b>{{ user.phone_number }}</b></div>
+      <div class="mb-2">Дата рождения: <b>{{ user.date|date:'d.m.Y' }}</b></div>
+      <div class="mb-2">Статус: <b>{{ user.display_status }}</b></div>
+    </div>
+  </div>
 </div>
 
 <div style="display: flex; flex-wrap: wrap; width: 90%; margin: 50px auto;" class="row">

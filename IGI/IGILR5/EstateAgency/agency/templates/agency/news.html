@@ -19,6 +19,11 @@
           <span class="text-muted small">{{ article.created_at|date:'d.m.Y H:i' }}</span>
         </div>
         <div class="mb-2 text-secondary">Автор: {{ article.publisher.username }}</div>
+        {% if article.photo %}
+          <div class="mb-2 text-center">
+            <img src="{{ article.photo.url }}" alt="Фото новости" class="img-fluid rounded shadow-sm" style="max-height:220px; object-fit:cover;">
+          </div>
+        {% endif %}
         <div>{{ article.text|linebreaks }}</div>
         {% if request.user.is_superuser %}
           <form method="post" action="" style="position:absolute; top:10px; right:10px;">

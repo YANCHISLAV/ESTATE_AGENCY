@@ -1,16 +1,10 @@
-"""
-Views for the Agency application.
-Оптимизировано: убраны дубли, вынесены общие блоки, приведено к единому стилю.
-"""
-
-# Standard Library
 import datetime
 import logging
 import os
 import statistics
 from typing import Dict, List
 
-# Django
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout, login, get_user_model
@@ -32,6 +26,7 @@ from dateutil.relativedelta import relativedelta
 import matplotlib.pyplot as plt
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django import forms
 
 from .forms import (
     LoginUserForm, RegisterUserForm, AddRealtyForm, AdminAddRealtyForm,
@@ -42,7 +37,7 @@ from .utils import get_ip_adress, get_info_user_by_ip, get_all_employees, get_al
 
 main_logger = logging.getLogger('main')
 
-# --- Утилиты для повторяющихся действий ---
+
 def send_email(subject, message, recipient_list):
     try:
         send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list, fail_silently=False)
@@ -78,7 +73,7 @@ def get_price_with_discount(request, realty):
         price = int(price * (1 - discount / 100))
     return price
 
-# --- FBV для простых страниц ---
+
 def main(request):
     return TemplateResponse(request, 'agency/base.html')
 
@@ -86,7 +81,7 @@ def cancel(request):
     messages.info(request, "Платёж отменён.")
     return redirect('main')
 
-# --- Авторизация и регистрация ---
+
 class CustomLoginView(LoginView):
     form_class = LoginUserForm
     template_name = 'agency/login.html'
@@ -110,7 +105,10 @@ class RegisterUserView(CreateView):
         context['title'] = "Create Employee" if self.request.user.is_superuser else "Register"
         return context
     def form_valid(self, form):
-        user = form.save()
+        user = form.save(commit=False)
+        if self.request.FILES.get('photo'):
+            user.photo = self.request.FILES['photo']
+        user.save()
         if self.request.user.is_superuser:
             employee_group = Group.objects.get(name='Employee')
             user.groups.add(employee_group)
@@ -131,7 +129,7 @@ class LogoutView(LoginRequiredMixin, View):
         logout(request)
         return redirect('main')
 
-# --- Список и детали недвижимости ---
+
 class RealtyListView(ListView):
     template_name = 'agency/realties.html'
     context_object_name = 'realties'
@@ -154,7 +152,7 @@ class RealtyDetailView(View):
         realty = get_object_or_404(Realty, slug=realty_slug)
         return TemplateResponse(request, 'agency/realty.html', {'realty': realty})
 
-# --- Категории ---
+
 class CategoryRealtyView(ListView):
     template_name = 'agency/category.html'
     context_object_name = 'realties'
@@ -179,7 +177,7 @@ class CategoryRealtyView(ListView):
         })
         return context
 
-# --- CRUD недвижимости ---
+
 class AddRealtyView(LoginRequiredMixin, CreateView):
     template_name = 'agency/add_realty.html'
     def get_form_class(self):
@@ -275,13 +273,16 @@ class DeleteRealtyView(LoginRequiredMixin, View):
         realty.delete()
         return redirect('all_realties' if request.user.is_superuser else 'owner_realties')
 
-# --- CRUD пользователей ---
+
 class UpdateUserView(LoginRequiredMixin, UpdateView):
     template_name = 'agency/update_user.html'
     model = get_user_model()
     form_class = UpdateUserForm
     def form_valid(self, form):
-        form.save()
+        user = form.save(commit=False)
+        if self.request.FILES.get('photo'):
+            user.photo = self.request.FILES['photo']
+        user.save()
         return HttpResponseRedirect(self.object.get_absolute_url())
     def form_invalid(self, form):
         main_logger.debug(f"Invalid data in Update user form, errors {form.errors}")
@@ -302,7 +303,7 @@ class DeleteUserView(UserPassesTestMixin, View):
             main_logger.error(f"Failed to delete user {user_id}: {str(ex)}")
         return redirect('main')
 
-# --- Запросы (Query) ---
+
 class QueryManagementView(LoginRequiredMixin, View):
     def get(self, request, realty_slug):
         realty = get_object_or_404(Realty, slug=realty_slug)
@@ -345,7 +346,7 @@ class QueryManagementView(LoginRequiredMixin, View):
             Query.objects.filter(realty=realty).delete()
             return redirect("main")
 
-# --- Покупка недвижимости ---
+
 class PaymentView(LoginRequiredMixin, View):
     def get(self, request, realty_slug):
         if request.user.is_superuser:
@@ -393,7 +394,7 @@ class PaymentView(LoginRequiredMixin, View):
         if amount != price_discount:
             messages.error(request, f"Сумма должна быть равна {price_discount}.")
             return redirect('buy_realty', realty_slug=realty.slug)
-        # Совершаем покупку
+
         realty.landlord = request.user
         realty.is_sold = True
         realty.rented_at = timezone.now()
@@ -403,7 +404,7 @@ class PaymentView(LoginRequiredMixin, View):
         messages.success(request, "Поздравляем! Вы успешно купили недвижимость.")
         return redirect('realty', realty_slug=realty.slug)
 
-# --- Отзывы ---
+
 class ReviewView(LoginRequiredMixin, View):
     def get(self, request, realty_slug: str):
         realty = get_object_or_404(Realty, slug=realty_slug)
@@ -422,7 +423,7 @@ class ReviewView(LoginRequiredMixin, View):
         messages.error(request, 'There was a problem with your review.')
         return render(request, 'agency/review.html', {'form': form, 'realty': realty})
 
-# --- Админ-статистика ---
+
 class AdminManagementView(UserPassesTestMixin, View):
     def test_func(self):
         return self.request.user.is_superuser
@@ -480,6 +481,8 @@ class NewsView(View):
     def get(self, request):
         articles = Article.objects.order_by('-created_at')
         form = ArticleForm()
+        if not request.user.is_superuser:
+            form.fields['photo'].widget = forms.HiddenInput()
         return render(request, 'agency/news.html', {'articles': articles, 'form': form})
 
     def post(self, request):
@@ -495,10 +498,12 @@ class NewsView(View):
             except Article.DoesNotExist:
                 messages.error(request, 'Новость не найдена.')
             return redirect('news')
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             article = form.save(commit=False)
             article.publisher = request.user
+            if request.FILES.get('photo'):
+                article.photo = request.FILES['photo']
             article.save()
             messages.success(request, 'Новость успешно добавлена!')
         else:
@@ -508,6 +513,14 @@ class NewsView(View):
 class PrivacyView(View):
     def get(self, request):
         return render(request, 'agency/privacy.html')
+
+class FAQView(View):
+    def get(self, request):
+        return render(request, 'agency/faq.html')
+
+class GlossaryView(View):
+    def get(self, request):
+        return render(request, 'agency/glossary.html')
 
 
 
